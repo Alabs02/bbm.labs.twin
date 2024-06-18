@@ -17,7 +17,7 @@
     "username": "snapster",
     "password": "MvUMh$lX9)LGUeGx3)L1",
     "database": "bbm_labs_uat",
-    "host": "bccckc4:3306",
+    "host": "bccckc4",
     "dialect": "mysql"
   }
 }
