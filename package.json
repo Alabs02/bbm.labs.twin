@@ -30,7 +30,8 @@
     "lodash": "^4.17.21",
     "mysql2": "^3.9.8",
     "nodemailer": "^6.9.13",
-    "sequelize": "^6.37.3"
+    "sequelize": "^6.37.3",
+    "uuid": "^10.0.0"
   },
   "devDependencies": {
     "@faker-js/faker": "^8.4.1",

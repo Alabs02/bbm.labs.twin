@@ -8,6 +8,7 @@ const ETEMPLATES = {
 	FORGOT_PASSWORD: "forgot_password",
 	WELCOME_EMAIL: "welcome_email",
 	CONTACT_US: "contact_us",
+  PAYMENT_CONFIRMATION: "payment_confirmation"
 };
 
 class EmailService {
