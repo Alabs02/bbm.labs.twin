@@ -14,8 +14,8 @@
     "dialect": "mysql"
   },
   "production": {
-    "username": "snapster",
-    "password": "MvUMh$lX9)LGUeGx3)L1",
+    "username": "root",
+    "password": "v2tWLey7eHVGU39vBJyiyFqGCw2gKS08fqGI5Jt0krRsB3ZS5wyMkX6G0wmOJODg",
     "database": "bbm_labs_uat",
     "host": "bccckc4",
     "dialect": "mysql"
