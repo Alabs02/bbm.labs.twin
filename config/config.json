@@ -1,5 +1,12 @@
 {
   "development": {
+    "username": "root",
+    "password": "v2tWLey7eHVGU39vBJyiyFqGCw2gKS08fqGI5Jt0krRsB3ZS5wyMkX6G0wmOJODg",
+    "database": "bbm_labs_uat",
+    "host": "bccckc4",
+    "dialect": "mysql"
+  },
+  "old_development": {
     "username": "snapster",
     "password": "MvUMh$lX9)LGUeGx3)L1",
     "database": "bbm_labs_uat",
