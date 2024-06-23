@@ -40,9 +40,9 @@ module.exports = (sequelize, DataTypes) => {
 				type: DataTypes.ENUM("BBM", "BBM Ace", "BBM Capitalis"),
 				allowNull: false,
 			},
-      deleted_at: {
-        type: DataTypes.DATE,
-      },
+			deleted_at: {
+				type: DataTypes.DATE,
+			},
 		},
 		{
 			sequelize,
@@ -50,7 +50,7 @@ module.exports = (sequelize, DataTypes) => {
 			timestamps: true,
 			underscored: true,
 			modelName: "Contact",
-			tableName: "contacts"
+			tableName: "contacts",
 		},
 	);
 

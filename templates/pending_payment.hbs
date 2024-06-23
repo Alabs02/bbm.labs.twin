@@ -3,10 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>EMAIL VERIFICATION</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Squada+One&display=swap" rel="stylesheet">
+    <title>PAYMENT PENDING CONFIRMATION</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Squada+One&display=swap"
+      rel="stylesheet"
+    />
 
     <style>
       html:root {
@@ -339,79 +342,161 @@
   <body>
     <header class="header">
       <div class="header__media">
-        <img draggable="false" class="header__img" src="https://firebasestorage.googleapis.com/v0/b/bullbearmastery.appspot.com/o/Assets%2FEmailTemplates%2Fbbm-logo.svg?alt=media&token=c6144429-b2c7-45a3-bf6a-dbe43baa1d20" alt="BBM Brand Logo" />
+        <img
+          draggable="false"
+          class="header__img"
+          src="https://firebasestorage.googleapis.com/v0/b/bullbearmastery.appspot.com/o/Assets%2FEmailTemplates%2Fbbm-logo.svg?alt=media&token=c6144429-b2c7-45a3-bf6a-dbe43baa1d20"
+          alt="BBM Brand Logo"
+        />
       </div>
     </header>
 
     <main class="main">
       <div class="main__hero">
-        <img draggable="false" class="main__hero-img" src="https://firebasestorage.googleapis.com/v0/b/bullbearmastery.appspot.com/o/Assets%2FEmailTemplates%2Femail-verification.svg?alt=media&token=56eca151-fc18-49e4-aa32-8c14b613502a" alt="Hero Image" />
+        <img
+          draggable="false"
+          class="main__hero-img"
+          src="https://firebasestorage.googleapis.com/v0/b/bullbearmastery.appspot.com/o/Assets%2FEmailTemplates%2Fbbm-ace.svg?alt=media&token=093a41e4-7e1f-403d-b132-cbb306574b82"
+          alt="Hero Image"
+        />
       </div>
 
       <div class="main__content">
-        <h3 class="font-squada-one text-info">Email Verification</h1>
-
         <p>Hi {{username}},</p>
 
-        <p>Thanks for joining BullBear Mastery! We're excited to have you on board.</p>
+        <p>
+          Thanks for choosing BullBear Mastery to help you achieve your funded
+          account goals! We're excited to have you on board.
+        </p>
 
-        <p>To complete your registration and unlock all the features of BullBear Mastery, simply verify your email address.</p>
+        <p>
+          We noticed your payment for the
+          <span style="font-weight: 700">{{ propFirmName }}</span> prop firm
+          challenge (account size: {{ accountSize }}, total cost: {{ totalCost
+          }}) is still pending verification.
+        </p>
 
-        <div style="margin-bottom: 16px;">
-          <a href="{{ verificationLink }}" target="_blank" rel="noreferer noopener" class="btn">Go to Verification Page</a>
-        </div>
+        <p>Here are a few things you can do to complete your payment:</p>
 
+        <ul>
+          <li>
+            <span style="font-weight: 700">Need help?</span> Our support team is
+            here to assist. Feel free to reach out to us at
+            <a
+              href="mailto:support@bullbearmastery.com?subject=Request for Assistance from BBM Team&body=Hi Support Team,"
+              target="_blank"
+              rel="noreferer noopener"
+              >support@bullbearmastery.com</a
+            >
+            or visit our website at
+            <a
+              href="https://bullbearmastery.com/"
+              target="_blank"
+              rel="noreferer noopener"
+              >bullbearmastery.com</a
+            >
+            for further assistance.
+          </li>
+        </ul>
 
-        <p>Kindly utilize the provided activation code to verify and activate your account.</p>
+        <p>
+          Once your payment is confirmed, you'll receive a separate email with
+          instructions to access your dashboard and start your challenge
+          journey.
+        </p>
 
-        <div>
-          <code>{{ verificationCode }}</code>
-        </div>
+        <p>
+          In the meantime, you can explore our website to learn more about
+          trading strategies and resources that can equip you for success.
+        </p>
 
-        <p style="font-weight: 600;">Don't worry, this code is valid for 30 minutes.</p>
+        <p style="font-weight: 700">
+          We look forward to welcoming you to the BullBear Mastery community!
+        </p>
 
-        <p style="font-size: 14px;">If you've already verified your email or aren't interested in joining <a href="https://bullbearmastery.com/" target="_blank" rel="noreferer noopener">BullBear Mastery</a>, you can disregard this email.</p>
-
-        <div style="width: 100%; margin-top: 16px;">
-          <p style="font-weight: 500;">Welcome to the community!</p>
-          <p style="font-weight: 500;" class="bbm-team">The BBM Team</p>
+        <div style="width: 100%; margin-top: 16px">
+          <p style="font-weight: 700" class="bbm-team">The BBM Team</p>
         </div>
       </div>
     </main>
 
     <footer class="footer">
       <div class="footer__content">
+        <div class="footer__heading">Join Our Communities</div>
 
-      <div class="footer__heading">Join Our Communities</div>
+        <div class="footer__actions">
+          <a
+            href="#"
+            target="_blank"
+            rel="noreferer noopener"
+            referrerpolicy="origin"
+          >
+            <img
+              src="https://firebasestorage.googleapis.com/v0/b/bullbearmastery.appspot.com/o/Assets%2FEmailTemplates%2Fdiscord.svg?alt=media&token=99753ba2-f72b-46a3-bb51-dfaa2bf27ee4"
+              alt="Discord"
+            />
+          </a>
 
-      <div class="footer__actions">
-        <a href="#" target="_blank" rel="noreferer noopener" referrerpolicy="origin">
-          <img src="https://firebasestorage.googleapis.com/v0/b/bullbearmastery.appspot.com/o/Assets%2FEmailTemplates%2Fdiscord.svg?alt=media&token=99753ba2-f72b-46a3-bb51-dfaa2bf27ee4" alt="Discord" />
-        </a>
+          <a
+            href="#"
+            target="_blank"
+            rel="noreferer noopener"
+            referrerpolicy="origin"
+          >
+            <img
+              src="https://firebasestorage.googleapis.com/v0/b/bullbearmastery.appspot.com/o/Assets%2FEmailTemplates%2Ftelegram.svg?alt=media&token=91703f42-95f0-4ea6-bfd4-5fbaca499cb0"
+              alt="Telegram"
+            />
+          </a>
 
-        <a href="#" target="_blank" rel="noreferer noopener" referrerpolicy="origin">
-          <img src="https://firebasestorage.googleapis.com/v0/b/bullbearmastery.appspot.com/o/Assets%2FEmailTemplates%2Ftelegram.svg?alt=media&token=91703f42-95f0-4ea6-bfd4-5fbaca499cb0" alt="Telegram" />
-        </a>
+          <a
+            href="#"
+            target="_blank"
+            rel="noreferer noopener"
+            referrerpolicy="origin"
+          >
+            <img
+              src="https://firebasestorage.googleapis.com/v0/b/bullbearmastery.appspot.com/o/Assets%2FEmailTemplates%2Fx.svg?alt=media&token=1f0496d3-8b47-4337-a0b1-45360aa25d4c"
+              alt="X"
+            />
+          </a>
 
-        <a href="#" target="_blank" rel="noreferer noopener" referrerpolicy="origin">
-          <img src="https://firebasestorage.googleapis.com/v0/b/bullbearmastery.appspot.com/o/Assets%2FEmailTemplates%2Fx.svg?alt=media&token=1f0496d3-8b47-4337-a0b1-45360aa25d4c" alt="X" />
-        </a>
+          <a
+            href="#"
+            target="_blank"
+            rel="noreferer noopener"
+            referrerpolicy="origin"
+          >
+            <img
+              src="https://firebasestorage.googleapis.com/v0/b/bullbearmastery.appspot.com/o/Assets%2FEmailTemplates%2Finstagram.svg?alt=media&token=024b626b-f538-46e0-a7e9-6a2e222353c3"
+              alt="Instagram"
+            />
+          </a>
 
-        <a href="#" target="_blank" rel="noreferer noopener" referrerpolicy="origin">
-          <img src="https://firebasestorage.googleapis.com/v0/b/bullbearmastery.appspot.com/o/Assets%2FEmailTemplates%2Finstagram.svg?alt=media&token=024b626b-f538-46e0-a7e9-6a2e222353c3" alt="Instagram" />
-        </a>
+          <a
+            href="#"
+            target="_blank"
+            rel="noreferer noopener"
+            referrerpolicy="origin"
+          >
+            <img
+              src="https://firebasestorage.googleapis.com/v0/b/bullbearmastery.appspot.com/o/Assets%2FEmailTemplates%2Fyoutube.svg?alt=media&token=a32dcc03-485c-4332-a604-4e8905bb9331"
+              alt="Youtube"
+            />
+          </a>
+        </div>
 
-        <a href="#" target="_blank" rel="noreferer noopener" referrerpolicy="origin">
-          <img src="https://firebasestorage.googleapis.com/v0/b/bullbearmastery.appspot.com/o/Assets%2FEmailTemplates%2Fyoutube.svg?alt=media&token=a32dcc03-485c-4332-a604-4e8905bb9331" alt="Youtube" />
-        </a>
+        <p style="font-size: 14px; margin-top: 16px">
+          Thank you for choosing BullBear Mastery.
+        </p>
+
+        <p style="font-size: 12px; margin-top: 16px">
+          Need help?
+          <a href="https://bullbearmastery.com/contact-us"
+            >Contact our customer support</a
+          >
+        </p>
       </div>
-
-      <p style="font-size: 14px; margin-top: 16px;">
-        Thank you for choosing BullBear Mastery.
-      </p>
-
-      <p style="font-size: 12px; margin-top: 16px;">Need help? <a href="https://bullbearmastery.com/contact-us">Contact our customer support</a></p>
-    </div>
 
       <div class="footer__panel">
         <span>&copy; 2024 BullBear Mastery. All Rights Reserved</span>

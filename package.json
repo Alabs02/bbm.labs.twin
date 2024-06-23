@@ -12,7 +12,7 @@
     "createdb": "node commands/create.js",
     "migrate": "node commands/migrate.js",
     "undo-seed": "node commands/undo-seed.js",
-    "undo-migrate": "node commands/undo-migrate.js",
+    "undo-migrations": "node commands/undo-migrate.js",
     "format": "prettier --write \"**/*.{html,js,ts}\""
   },
   "dependencies": {

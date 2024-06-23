@@ -59,6 +59,14 @@ module.exports = (sequelize, DataTypes) => {
 			email_verified_at: {
 				type: DataTypes.DATE,
 			},
+			verification_code: {
+				type: DataTypes.STRING,
+				allowNull: true,
+			},
+			verification_code_expires_at: {
+				type: DataTypes.DATE,
+				allowNull: true,
+			},
 			remember_token: {
 				type: DataTypes.STRING,
 			},
@@ -70,17 +78,17 @@ module.exports = (sequelize, DataTypes) => {
 				type: DataTypes.DATE,
 				allowNull: true,
 			},
-      deleted_at: {
-        type: DataTypes.DATE,
-      },
+			deleted_at: {
+				type: DataTypes.DATE,
+			},
 		},
 		{
 			sequelize,
 			paranoid: true,
 			timestamps: true,
-      underscored: true,
+			underscored: true,
 			modelName: "User",
-			tableName: "users"
+			tableName: "users",
 		},
 	);
 

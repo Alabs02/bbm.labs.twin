@@ -1,7 +1,17 @@
 const dotenv = require("dotenv");
 const express = require("express");
 const bodyParser = require("body-parser");
-const { authRoutes, lookupRoutes, newsletterRoutes, contactRoutes, propFirmRoutes, accountSizeRoutes, challengeRoutes, paymentRoutes } = require("./routes/index.js");
+const {
+	authRoutes,
+	lookupRoutes,
+	newsletterRoutes,
+	contactRoutes,
+	propFirmRoutes,
+	accountSizeRoutes,
+	challengeRoutes,
+	paymentRoutes,
+	analyticsRoutes
+} = require("./routes/index.js");
 
 // MIDDLEWARES
 const { cors, listRoutes } = require("./middlewares/index.js");
@@ -20,6 +30,7 @@ app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/lookup", lookupRoutes);
 app.use("/api/v1/contact", contactRoutes);
 app.use("/api/v1/payment", paymentRoutes);
+app.use("/api/v1/analytics", analyticsRoutes);
 app.use("/api/v1/prop-firms", propFirmRoutes);
 app.use("/api/v1/challenge", challengeRoutes);
 app.use("/api/v1/newsletter", newsletterRoutes);

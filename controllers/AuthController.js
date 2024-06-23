@@ -8,6 +8,7 @@ const db = require("../models/index.js");
 const { camelCase, mapKeys } = require("../utils/index.js");
 const { responseSerializer } = require("../helpers/index.js");
 const { EmailService, ETEMPLATES } = require("../services/email.service.js");
+const capitalize = require("lodash/capitalize.js");
 
 // EMAIL SERVICE INSTANCES
 const emailNotificationService = new EmailService(
@@ -17,17 +18,31 @@ const emailNotificationService = new EmailService(
 );
 
 const AuthController = {
-	async sendVerificationEmail(email, userName, verificationLink) {
+	async sendVerificationEmail(email, userName, verificationCode, verificationLink) {
 		try {
 			await emailNotificationService.sendEmail(
 				email,
 				ETEMPLATES.EMAIL_VERIFICATION,
-				"Email Verification",
-				{ username: userName, verificationLink },
+				`Welcome to BullBear Mastery, ${capitalize(userName)}! Verify your email to get started.`,
+				{ username: capitalize(userName), verificationCode, verificationLink },
 			);
 		} catch (error) {
 			console.error("Error sending verification email:", error);
 			throw new Error("Failed to send verification email");
+		}
+	},
+
+  async sendWelcomeEmail(email, userName) {
+		try {
+			await emailNotificationService.sendEmail(
+				email,
+				ETEMPLATES.WELCOME_EMAIL,
+				`Welcome to Financial Freedom, ${capitalize(userName)}! (and say goodbye to prop trading challenges)`,
+				{ username: capitalize(userName) },
+			);
+		} catch (error) {
+			console.error("Error sending welcome message:", error);
+			throw new Error("Failed to send welcome message");
 		}
 	},
 
@@ -38,7 +53,7 @@ const AuthController = {
 				email,
 				ETEMPLATES.FORGOT_PASSWORD,
 				"Password Reset",
-				{ username, resetLink }, // Pass the correct variables
+				{ username: capitalize(username), resetLink }, // Pass the correct variables
 			);
 		} catch (error) {
 			console.error("Error sending password reset email:", error);
@@ -123,9 +138,9 @@ const AuthController = {
 			const tokenPayload = { id: user.id, email: user.email };
 			const accessToken = jwt.sign(tokenPayload, process.env.JWT_SECRET, { expiresIn: "7d" });
 
-      const { password: _, ...userResponse } = user.toJSON();
-  
-      const camelCasedUserResponse = mapKeys(userResponse, (value, key) => camelCase(key));
+			const { password: _, ...userResponse } = user.toJSON();
+
+			const camelCasedUserResponse = mapKeys(userResponse, (value, key) => camelCase(key));
 
 			return res.status(200).json(
 				responseSerializer.format(true, "Success! You have successfully logged in. Welcome back!", {
@@ -149,66 +164,190 @@ const AuthController = {
 	},
 
 	async register(req, res) {
-    const errors = validationResult(req);
-  
-    if (!errors.isEmpty()) {
-      return res.status(400).json(
-        responseSerializer.format(
-          false,
-          "Validation unsuccessful. Please check your input and try again.",
-          null,
-          errors.array(),
-        ),
-      );
-    }
-  
-    const { email, userName, password, firstName, lastName, location, ipAddress } = req.body;
-  
-    try {
-      const hashedPassword = await bcrypt.hash(password, 10);
-  
-      const user = await db.User.create({
-        email,
-        username: userName,
-        password: hashedPassword,
-        firstname: firstName,
-        lastname: lastName,
-        location,
-        ip_address: ipAddress,
-        is_active: true, // Assuming you want to activate the user immediately
-        last_login: null, // Set last_login to null on register
-        last_logout: null, // Set last_logout to null on register
-        email_verified_at: null, // Set email_verified_at to null on register
-        remember_token: null, // Set remember_token to null on register
-      });
-  
-      const verificationLink = "http://127.0.0.1:3010?redirect_uri=dashboard";
-      await AuthController.sendVerificationEmail(email, userName, verificationLink);
-  
-      const { password: _, deleted_at, ...userResponse } = user.toJSON();
-  
-      // Convert userResponse keys to camelCase using lodash
-      const camelCasedUserResponse = mapKeys(userResponse, (value, key) => camelCase(key));
-  
-      return res.status(201).json(
-        responseSerializer.format(
-          true,
-          "Registration successful! Welcome aboard! You can now log in and enjoy our services.",
-          camelCasedUserResponse,
-        ),
-      );
-    } catch (error) {
-      console.error("Error in register:", error);
-      return res.status(500).json(
-        responseSerializer.format(
-          false,
-          "Registration unsuccessful. Please try again or contact support for assistance.",
-          null,
-          [{ msg: error.message }],
-        ),
-      );
-    }
-  },
+		const errors = validationResult(req);
+
+		if (!errors.isEmpty()) {
+			return res
+				.status(400)
+				.json(
+					responseSerializer.format(
+						false,
+						"Validation unsuccessful. Please check your input and try again.",
+						null,
+						errors.array(),
+					),
+				);
+		}
+
+		const { email, userName, password, firstName, lastName, location, ipAddress } = req.body;
+
+		try {
+			const hashedPassword = await bcrypt.hash(password, 10);
+      const verificationLink = `${process.env.CLIENT_URI}/account/activation?email=${email}`;
+			const verificationCode = crypto.randomBytes(13).toString("hex"); // 26 characters
+			const verificationCodeExpiresAt = new Date(Date.now() + 30 * 60 * 1000); // 30 minutes from now
+
+			const user = await db.User.create({
+				email,
+				username: userName,
+				password: hashedPassword,
+				firstname: firstName,
+				lastname: lastName,
+				location,
+				ip_address: ipAddress,
+				is_active: true,
+				last_login: null,
+				last_logout: null,
+				verification_code: verificationCode,
+				verification_code_expires_at: verificationCodeExpiresAt,
+			});
+
+      Promise.all([
+        await AuthController.sendWelcomeEmail(email, userName),
+        await AuthController.sendVerificationEmail(email, userName, verificationCode, verificationLink)
+      ]);
+      
+			const { password: _, deleted_at, ...userResponse } = user.toJSON();
+
+			// Convert userResponse keys to camelCase using lodash
+			const camelCasedUserResponse = mapKeys(userResponse, (value, key) => camelCase(key));
+
+			return res
+				.status(201)
+				.json(
+					responseSerializer.format(
+						true,
+						"Registration successful! A verification email has been sent. Please verify your email to log in.",
+						camelCasedUserResponse,
+					),
+				);
+		} catch (error) {
+			console.error("Error in register:", error);
+			return res
+				.status(500)
+				.json(
+					responseSerializer.format(
+						false,
+						"Registration unsuccessful. Please try again or contact support for assistance.",
+						null,
+						[{ msg: error.message }],
+					),
+				);
+		}
+	},
+
+	async verifyEmailCode(req, res) {
+		const { email, code } = req.body;
+
+		try {
+			const user = await db.User.findOne({
+				where: { email, verification_code: code },
+			});
+
+			if (!user) {
+				return res
+					.status(400)
+					.json(
+						responseSerializer.format(
+							false,
+							"Invalid verification code. Please check your email and try again.",
+						),
+					);
+			}
+
+			if (user.verification_code_expires_at < new Date()) {
+				return res
+					.status(400)
+					.json(
+						responseSerializer.format(
+							false,
+							"Verification code has expired. Please request a new code.",
+						),
+					);
+			}
+
+			await user.update({
+				email_verified_at: new Date(),
+				verification_code: null,
+				verification_code_expires_at: null,
+			});
+
+			return res
+				.status(200)
+				.json(responseSerializer.format(true, "Email verified successfully. You can now log in."));
+		} catch (error) {
+			console.error("Error in verifyEmailCode:", error);
+			return res
+				.status(500)
+				.json(
+					responseSerializer.format(
+						false,
+						"Internal error. Contact support or your admin for help.",
+						null,
+						[{ msg: error.message }],
+					),
+				);
+		}
+	},
+
+	async resendVerificationCode(req, res) {
+		const { email } = req.body;
+
+		try {
+			const user = await db.User.findOne({
+				where: { email },
+			});
+
+			if (!user) {
+				return res
+					.status(400)
+					.json(responseSerializer.format(false, "Email not found. Please register again."));
+			}
+
+			if (user.verification_code_expires_at >= new Date()) {
+				return res
+					.status(400)
+					.json(
+						responseSerializer.format(
+							false,
+							"Previous verification code is still valid. Please check your email.",
+						),
+					);
+			}
+
+			const newVerificationCode = crypto.randomBytes(13).toString("hex"); // 26 characters
+      const verificationLink = `${process.env.CLIENT_URI}/account/activation?email=${email}`;
+			const newVerificationCodeExpiresAt = new Date(Date.now() + 30 * 60 * 1000); // 30 minutes from now
+
+			await user.update({
+				verification_code: newVerificationCode,
+				verification_code_expires_at: newVerificationCodeExpiresAt,
+			});
+
+			await AuthController.sendVerificationEmail(email, user.username, newVerificationCode, verificationLink);
+
+			return res
+				.status(200)
+				.json(
+					responseSerializer.format(
+						true,
+						"A new verification email has been sent. Please check your inbox.",
+					),
+				);
+		} catch (error) {
+			console.error("Error in resendVerificationCode:", error);
+			return res
+				.status(500)
+				.json(
+					responseSerializer.format(
+						false,
+						"Internal error. Contact support or your admin for help.",
+						null,
+						[{ msg: error.message }],
+					),
+				);
+		}
+	},
 
 	async forgotPassword(req, res) {
 		const errors = validationResult(req);
@@ -352,39 +491,45 @@ const AuthController = {
 		}
 	},
 
-  async terminateSession(req, res) {
+	async terminateSession(req, res) {
 		const { userId } = req.body;
 
 		try {
 			const user = await db.User.findByPk(userId);
 
 			if (!user) {
-				return res.status(404).json(
-					responseSerializer.format(
-						false,
-						"User not found. Please check the user ID or contact support for help.",
-					)
-				);
+				return res
+					.status(404)
+					.json(
+						responseSerializer.format(
+							false,
+							"User not found. Please check the user ID or contact support for help.",
+						),
+					);
 			}
 
 			await user.update({ last_logout: new Date() });
 
-			return res.status(200).json(
-				responseSerializer.format(
-					true,
-					"Session terminated successfully. You have been logged out.",
-				)
-			);
+			return res
+				.status(200)
+				.json(
+					responseSerializer.format(
+						true,
+						"Session terminated successfully. You have been logged out.",
+					),
+				);
 		} catch (error) {
 			console.error("Error in terminateSession:", error);
-			return res.status(500).json(
-				responseSerializer.format(
-					false,
-					"Internal error. Contact support or your admin for help.",
-					null,
-					[{ msg: error.message }],
-				)
-			);
+			return res
+				.status(500)
+				.json(
+					responseSerializer.format(
+						false,
+						"Internal error. Contact support or your admin for help.",
+						null,
+						[{ msg: error.message }],
+					),
+				);
 		}
 	},
 };

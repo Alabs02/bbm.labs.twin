@@ -3,6 +3,7 @@ const lookupRoutes = require("./lookup.js");
 const paymentRoutes = require("./payment.js");
 const contactRoutes = require("./contact.js");
 const propFirmRoutes = require("./propFirm.js");
+const analyticsRoutes = require("./analytics.js");
 const challengeRoutes = require("./challenge.js");
 const newsletterRoutes = require("./newsletter.js");
 const accountSizeRoutes = require("./accountSize.js");
@@ -11,9 +12,10 @@ module.exports = {
 	authRoutes,
 	lookupRoutes,
 	contactRoutes,
-  paymentRoutes,
+	paymentRoutes,
 	propFirmRoutes,
-  challengeRoutes,
+	challengeRoutes,
+	analyticsRoutes,
 	newsletterRoutes,
 	accountSizeRoutes,
 };

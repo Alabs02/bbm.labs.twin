@@ -1,4 +1,5 @@
 const AuthController = require("./AuthController.js");
+const AnalyticsController = require("./AnalyticsController.js");
 const LookupController = require("./LookupController.js");
 const PaymentController = require("./PaymentController.js");
 const ContactController = require("./ContactController.js");
@@ -11,11 +12,12 @@ const ChallengePaymentController = require("./ChallengePaymentController.js");
 module.exports = {
 	AuthController,
 	LookupController,
-  PaymentController,
+	PaymentController,
 	ContactController,
+	AnalyticsController,
 	NewsletterController,
 	PropFirmController,
-  ChallengeController,
+	ChallengeController,
 	AccountSizeController,
-  ChallengePaymentController
+	ChallengePaymentController,
 };

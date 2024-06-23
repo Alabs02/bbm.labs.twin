@@ -4,11 +4,13 @@ const fs = require("fs");
 const path = require("path");
 
 const ETEMPLATES = {
-	EMAIL_VERIFICATION: "email_verification",
-	FORGOT_PASSWORD: "forgot_password",
-	WELCOME_EMAIL: "welcome_email",
 	CONTACT_US: "contact_us",
-  PAYMENT_CONFIRMATION: "payment_confirmation"
+	WELCOME_EMAIL: "welcome_email",
+  FAILED_PAYMENT: "failed_payment",
+  PENDING_PAYMENT: "pending_payment",
+	FORGOT_PASSWORD: "forgot_password",
+	EMAIL_VERIFICATION: "email_verification",
+	PAYMENT_CONFIRMATION: "payment_confirmation",
 };
 
 class EmailService {

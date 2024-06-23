@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WELCOME EMAIL</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Squada+One&display=swap" rel="stylesheet">
+
+    <style>
+      html:root {
+        --bg: #0f0e10;
+        --info: #34aaf3;
+        --primary-light: #fceaf0;
+        --primary: #e4457b;
+        --text-color: rgba(232, 246, 254, 0.8);
+        --tertiary-500: #19181a;
+      }
+
+      *::selection {
+        color: var(--text-color);
+        background-color: var(--info);
+      }
+
+      * {
+        line-height: 28px;
+        letter-spacing: 0.2pt;
+      }
+
+      .font-squada-one {
+        font-family: "Squada One", sans-serif;
+        font-weight: 400;
+        font-style: normal;
+      }
+
+      .text-info {
+        color: var(--info);
+      }
+
+      a {
+        font-weight: 500;
+        color: var(--info);
+        transition: all 0.5s;
+        text-decoration: none;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+
+      a:active,
+      a:focus,
+      a:visited {
+        color: var(--primary);
+      }
+
+      body,
+      html {
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        min-height: 100vh;
+        font-family: "Noto Sans", sans-serif;
+        overflow-x: hidden;
+        color: var(--text-color);
+        background-color: var(--bg);
+      }
+
+      *,
+      *::before,
+      *::after {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+
+      h3,
+      .h3 {
+        font-size: 32px;
+      }
+
+      h4,
+      .h4 {
+        font-size: 28px;
+      }
+
+      ul {
+        padding: 0 24px;
+      }
+
+      li {
+        list-style: none;
+        padding-left: 28px;
+        margin-bottom: 12px;
+        position: relative;
+      }
+
+      li:last-child {
+        margin-bottom: 0;
+      }
+
+      li:before {
+        content: "";
+        position: absolute;
+        top: 25%;
+        left: 0;
+        width: 8px;
+        height: 8px;
+        background-color: var(--info);
+        border-radius: 50%;
+      }
+
+      a.btn {
+        cursor: pointer;
+        color: var(--bg);
+        background-color: var(--info);
+        border: none;
+        padding: 16px 24px;
+        border-radius: 999px;
+        font-size: 15px;
+        font-weight: 500;
+      }
+
+      a.btn:hover {
+        text-decoration: none;
+        color: var(--primary-light);
+        background-color: var(--primary);
+      }
+
+      @media (min-width: 1024px) {
+        h3,
+        .h3 {
+          font-size: 40px;
+        }
+      }
+
+      header {
+        display: flex;
+        overflow: hidden;
+        justify-content: center;
+        padding: 16px 28px;
+        background: var(--bg);
+        border-bottom: 1px solid rgba(232, 246, 254, 0.1);
+      }
+
+      @media (min-width: 1024px) {
+        header {
+          padding: 20px 32px;
+        }
+      }
+
+      .header__media {
+        height: 45px;
+        width: auto;
+        position: relative;
+      }
+
+      @media (min-width: 1024px) {
+        .header__media {
+          height: 60px;
+        }
+      }
+
+      .header__img {
+        height: 100%;
+        width: auto;
+        object-fit: contain;
+      }
+
+      main {
+        flex: 1 1 0%;
+      }
+
+      .main__hero {
+        width: 100%;
+        height: 30vh;
+        position: relative;
+        overflow: hidden;
+      }
+
+      @media (min-width: 1024px) {
+        .main__hero {
+          height: 35vh;
+        }
+      }
+
+      .main__hero-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .main__content {
+        width: 100%;
+        padding: 28px;
+
+        display: flex;
+        flex-direction: column;
+        row-gap: 20px;
+      }
+
+      @media (min-width: 1024px) {
+        .main__content {
+          padding: 32px;
+          row-gap: 24px;
+        }
+      }
+
+      p {
+        font-size: 14px;
+      }
+
+      @media (min-width: 1024px) {
+        p {
+          font-size: 16px;
+        }
+      }
+
+      code {
+        display: inline-block;
+        padding: 16px 24px;
+        width: 100%;
+        text-align: center;
+        font-size: 20px;
+        font-weight: 700;
+        letter-spacing: 1pt;
+        backdrop-filter: blur(5.8px);
+        border-radius: 8px;
+        -webkit-backdrop-filter: blur(5.8px);
+        background: rgba(100, 109, 114, 0.1);
+        box-shadow: 0 0 2px rgba(232, 246, 254, 0.15);
+        box-shadow: 0 4px 30px rgba(25, 24, 26, 0.1);
+      }
+
+      @media (min-width: 1024px) {
+        code {
+          display: inline-block;
+          padding: 20px 56px;
+          font-size: 24px;
+          font-weight: 700;
+          width: auto;
+          letter-spacing: 1pt;
+          backdrop-filter: blur(5.8px);
+          border-radius: 8px;
+          -webkit-backdrop-filter: blur(5.8px);
+          background: rgba(100, 109, 114, 0.1);
+          box-shadow: 0 0 2px rgba(232, 246, 254, 0.15);
+          box-shadow: 0 4px 30px rgba(25, 24, 26, 0.1);
+        }
+      }
+
+      footer {
+        background: var(--tertiary-500);
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+      }
+
+      .footer__content {
+        row-gap: 12px;
+        padding: 28px;
+        padding-bottom: 0;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+      }
+
+      @media (min-width: 1024px) {
+        .footer__content {
+          row-gap: 16px;
+          padding: 32px;
+        }
+      }
+
+      .footer__heading {
+        font-size: 16px;
+      }
+
+      .footer__actions {
+        display: flex;
+        align-items: center;
+        column-gap: 16px;
+      }
+
+      .footer__actions a {
+        display: inline-block;
+        width: 32px;
+        height: 32px;
+        border-radius: 4px;
+        position: relative;
+      }
+
+      .footer__actions a img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+
+      .footer__panel {
+        border-top: 1px solid rgba(232, 246, 254, 0.1);
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        font-size: 12px;
+        font-weight: 300;
+        letter-spacing: 0.2pt;
+        margin-top: 28px;
+        padding: 16px 28px;
+      }
+
+      @media (min-width: 1024px) {
+        .footer__panel {
+          padding: 16px 32px;
+        }
+      }
+
+      .bbm-team {
+        background-image: linear-gradient(
+          to bottom right,
+          #e1306c 0%,
+          #1da1f2 50%,
+          #656ef4 100%
+        );
+        background-size: cover !important;
+        background-clip: text !important;
+        color: transparent !important;
+        font-weight: 700 !important;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="header">
+      <div class="header__media">
+        <img draggable="false" class="header__img" src="https://firebasestorage.googleapis.com/v0/b/bullbearmastery.appspot.com/o/Assets%2FEmailTemplates%2Fbbm-logo.svg?alt=media&token=c6144429-b2c7-45a3-bf6a-dbe43baa1d20" alt="BBM Brand Logo" />
+      </div>
+    </header>
+
+    <main class="main">
+      <div class="main__hero">
+        <img draggable="false" class="main__hero-img" src="https://firebasestorage.googleapis.com/v0/b/bullbearmastery.appspot.com/o/Assets%2FEmailTemplates%2Fbbm-family.svg?alt=media&token=c756b2e9-13c2-4caf-93aa-cf555f52460a" alt="Hero Image" />
+      </div>
+
+      <div class="main__content">
+        <p>Hi {{username}},</p>
+
+        <p>Get ready to <span style="font-weight: 700;">trade smarter, not harder</span>. We're thrilled to welcome you to the <span class="bbm-team">BBM Ace</span> community, a place built for forex traders like you who are ready to take control of their financial future.</p>
+
+        <p>
+          <span style="font-weight: 700;">Congratulations on taking this bold step towards financial freedom!</span> We know the challenges of prop trading – the pressure, the limitations. But with <span class="bbm-team">BBM Ace</span>, those days are behind you.
+        </p>
+
+        <p>Here's how we'll help you <span style="font-weight: 700;">fast-track your forex success</span> and <span style="font-weight: 700;">maximize your profits:</span></p>
+
+        <ul>
+          <li><span style="font-weight: 700;">Effortless Challenge Completion:</span> <span style="font-weight: 700;">Pass your challenges quickly and efficiently</span> with our proven approach. We'll help you procure and complete 1-step challenges in <span style="font-weight: 700;">just a week</span>, and 2-step challenges in <span style="font-weight: 700;">two weeks</span>.</li>
+          <li><span style="font-weight: 700;"></span> Join our exclusive VIP Discord channel where we provide high-quality <span style="font-weight: 700;">trading signals</span> and insights. We're confident you can achieve <span style="font-weight: 700;">consistent monthly returns of 8%</span>  on your account size.</li>
+          <li><span style="font-weight: 700;">Managed Account Option: Too busy to trade yourself?</span> Let our experienced team manage your prop account for you. While the payout will be 5% in this case, you'll still benefit from our expertise and avoid the time commitment.</li>
+          <li><span style="font-weight: 700;">Advanced Trading Tools (Coming Soon):</span> We're constantly developing powerful tools to help you analyze the market more effectively and make informed trading decisions. Stay tuned for exciting upcoming releases!</li>
+          <li><span style="font-weight: 700;">Extensive Learning Resources:</span> We're building a comprehensive library of educational resources to empower you as a trader. We'll notify you as soon as these valuable resources become available.</li>
+        </ul>
+
+        <p>
+          <span style="font-weight: 700;">Ready to embark on your journey to financial freedom?</span> Here are a few ways to get started:
+        </p>
+
+        <ul>
+          <li><span style="font-weight: 700;">Expand your trading knowledge: </span> Join our forum community to connect with other traders, discuss strategies, and learn from each other's experiences. You'll find the forum link in the footer of this email.</li>
+        </ul>
+
+        <p>
+          We're here to empower you every step of the way. If you have any questions, don't hesitate to reach out to our dedicated support team at <a href="mailto:support@bullbearmastery.com?subject=Request for Assistance from BBM Team&body=Hi Support Team,">support@bullbearmastery.com</a> or browse our comprehensive <a href="https://bullbearmastery.com/help-center" target="_blank" rel="noreferer noopener">help center</a> .
+        </p>
+
+        <p>
+          Welcome aboard, and good luck on your trading journey!
+        </p>
+
+        <div style="width: 100%; margin-top: 16px;">
+          <p style="margin-bottom: 8px;">Sincerely,</p>
+          <p style="font-weight: 700;" class="bbm-team">The BBM Team</p>
+        </div>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer__content">
+
+      <div class="footer__heading">Join Our Communities</div>
+
+      <div class="footer__actions">
+        <a href="#" target="_blank" rel="noreferer noopener" referrerpolicy="origin">
+          <img src="https://firebasestorage.googleapis.com/v0/b/bullbearmastery.appspot.com/o/Assets%2FEmailTemplates%2Fdiscord.svg?alt=media&token=99753ba2-f72b-46a3-bb51-dfaa2bf27ee4" alt="Discord" />
+        </a>
+
+        <a href="#" target="_blank" rel="noreferer noopener" referrerpolicy="origin">
+          <img src="https://firebasestorage.googleapis.com/v0/b/bullbearmastery.appspot.com/o/Assets%2FEmailTemplates%2Ftelegram.svg?alt=media&token=91703f42-95f0-4ea6-bfd4-5fbaca499cb0" alt="Telegram" />
+        </a>
+
+        <a href="#" target="_blank" rel="noreferer noopener" referrerpolicy="origin">
+          <img src="https://firebasestorage.googleapis.com/v0/b/bullbearmastery.appspot.com/o/Assets%2FEmailTemplates%2Fx.svg?alt=media&token=1f0496d3-8b47-4337-a0b1-45360aa25d4c" alt="X" />
+        </a>
+
+        <a href="#" target="_blank" rel="noreferer noopener" referrerpolicy="origin">
+          <img src="https://firebasestorage.googleapis.com/v0/b/bullbearmastery.appspot.com/o/Assets%2FEmailTemplates%2Finstagram.svg?alt=media&token=024b626b-f538-46e0-a7e9-6a2e222353c3" alt="Instagram" />
+        </a>
+
+        <a href="#" target="_blank" rel="noreferer noopener" referrerpolicy="origin">
+          <img src="https://firebasestorage.googleapis.com/v0/b/bullbearmastery.appspot.com/o/Assets%2FEmailTemplates%2Fyoutube.svg?alt=media&token=a32dcc03-485c-4332-a604-4e8905bb9331" alt="Youtube" />
+        </a>
+      </div>
+
+      <p style="font-size: 14px; margin-top: 16px;">
+        Thank you for choosing BullBear Mastery.
+      </p>
+
+      <p style="font-size: 12px; margin-top: 16px;">Need help? <a href="https://bullbearmastery.com/contact-us">Contact our customer support</a></p>
+    </div>
+
+      <div class="footer__panel">
+        <span>&copy; 2024 BullBear Mastery. All Rights Reserved</span>
+      </div>
+    </footer>
+  </body>
+</html>
