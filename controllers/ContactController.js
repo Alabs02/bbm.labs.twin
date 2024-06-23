@@ -6,7 +6,7 @@ const { EmailService, ETEMPLATES } = require("../services/email.service.js");
 
 const emailService = new EmailService(
 	"notifications@bullbearmastery.com",
-	"#1Hizlto",
+	process.env.EMAIL_NOTIFICATIONS_KEY,
 	path.join(__dirname, "../templates"),
 );
 

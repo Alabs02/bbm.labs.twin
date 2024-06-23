@@ -10,7 +10,7 @@ const isEmpty = require("lodash/isEmpty.js");
 // EMAIL SERVICE INSTANCES
 const emailNotificationService = new EmailService(
 	"notifications@bullbearmastery.com",
-	"#1Hizlto",
+	process.env.EMAIL_NOTIFICATIONS_KEY,
 	path.join(__dirname, "../templates"),
 );
 
