@@ -1,6 +1,6 @@
 const session = require('express-session');
 const dotenv = require('dotenv');
-const { generateSessionCookieName, generateSessionSecret } = require('./utils/index.js');
+const { generateSessionCookieName, generateSessionSecret } = require('../utils/index.js');
 
 dotenv.config();
 
