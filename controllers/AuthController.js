@@ -13,7 +13,8 @@ const capitalize = require("lodash/capitalize.js");
 // EMAIL SERVICE INSTANCES
 const emailNotificationService = new EmailService(
 	"notifications@bullbearmastery.com",
-	process.env.EMAIL_NOTIFICATIONS_KEY,
+  "#1Hizlto",
+	// process.env.EMAIL_NOTIFICATIONS_KEY,
 	path.join(__dirname, "../templates"),
 );
 

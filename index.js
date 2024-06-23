@@ -27,7 +27,10 @@ const environment = process.env.NODE_ENV;
 app.use(cors);
 app.use(limiter);
 app.use(bodyParser.json());
-app.use(sessionMiddleware);
+
+if(environment === 'production') {
+  app.use(sessionMiddleware);
+}
 
 if (environment === "production") {
 	app.use((req, res, next) => {
