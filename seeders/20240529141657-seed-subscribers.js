@@ -17,10 +17,10 @@ module.exports = {
 			});
 		}
 
-		await queryInterface.bulkInsert("Subscribers", subscribers, {});
+		await queryInterface.bulkInsert("subscribers", subscribers, {});
 	},
 
 	async down(queryInterface, Sequelize) {
-		await queryInterface.bulkDelete("Subscribers", null, {});
+		await queryInterface.bulkDelete("subscribers", null, {});
 	},
 };

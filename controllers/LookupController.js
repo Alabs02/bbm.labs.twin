@@ -7,6 +7,12 @@ const { responseSerializer } = require("../helpers/index.js");
 countries.registerLocale(require("i18n-iso-countries/langs/en.json"));
 
 const LookupController = {
+	async getIpAPIInfo(req, res) {
+		return res.status(200).json(
+			responseSerializer.format(true, 'Api is running', { name: "BBM LABS API SERVICE V1" })
+		);
+	},
+
 	async getUserEmailVerificationStatus(req, res) {
 		const userId = req.params.userId;
 
