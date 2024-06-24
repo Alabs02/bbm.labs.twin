@@ -25,12 +25,12 @@ const environment = process.env.NODE_ENV;
 
 // Middleware
 app.use(cors);
-app.use(limiter);
+// app.use(limiter);
 app.use(bodyParser.json());
 
-if(environment === 'production') {
-  app.use(sessionMiddleware);
-}
+// if(environment === 'production') {
+//   app.use(sessionMiddleware);
+// }
 
 if (environment === "production") {
 	app.use((req, res, next) => {
