@@ -3,425 +3,121 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>EMAIL VERIFICATION</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Squada+One&display=swap" rel="stylesheet">
-
+    <title>Email Verification</title>
     <style>
-      html:root {
-        --bg: #0f0e10;
-        --info: #34aaf3;
-        --primary-light: #fceaf0;
-        --primary: #e4457b;
-        --text-color: rgba(232, 246, 254, 0.8);
-        --tertiary-500: #19181a;
-      }
-
-      *::selection {
-        color: var(--text-color);
-        background-color: var(--info);
-      }
-
-      * {
-        line-height: 28px;
-        letter-spacing: 0.2pt;
-      }
-
-      .font-squada-one {
-        font-family: "Squada One", sans-serif;
-        font-weight: 400;
-        font-style: normal;
-      }
-
-      .text-info {
-        color: var(--info);
-      }
-
-      a {
-        font-weight: 500;
-        color: var(--info);
-        transition: all 0.5s;
-        text-decoration: none;
-      }
-
-      a:hover {
-        text-decoration: underline;
-      }
-
-      a:active,
-      a:focus,
-      a:visited {
-        color: var(--primary);
-      }
-
-      body,
-      html {
-        width: 100%;
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        min-height: 100vh;
-        font-family: "Noto Sans", sans-serif;
-        overflow-x: hidden;
-        color: var(--text-color) !important;
-        background: var(--bg) !important;
-      }
-
-      *,
-      *::before,
-      *::after {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-
       body {
-        display: flex;
-        flex-direction: column;
+        width: 100% !important;
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+        background-color: #0f0e10;
+        color: #e8f6fe;
       }
-
-      @media (min-width: 1024px) {
-        body {
-          justify-content: space-between;
-        }
-      }
-
-      h3,
-      .h3 {
-        font-size: 32px;
-      }
-
-      h4,
-      .h4 {
-        font-size: 28px;
-      }
-
-      ul {
-        padding: 0 24px;
-      }
-
-      li {
-        list-style: none;
-        padding-left: 28px;
-        margin-bottom: 12px;
-        position: relative;
-      }
-
-      li:last-child {
-        margin-bottom: 0;
-      }
-
-      li:before {
-        content: "";
-        position: absolute;
-        top: 25%;
-        left: 0;
-        width: 8px;
-        height: 8px;
-        background-color: var(--info);
-        border-radius: 50%;
-      }
-
-      a.btn {
-        cursor: pointer;
-        color: var(--bg);
-        background-color: var(--info);
-        border: none;
-        padding: 16px 24px;
-        border-radius: 999px;
-        font-size: 15px;
-        font-weight: 500;
-      }
-
-      a.btn:hover {
-        text-decoration: none;
-        color: var(--primary-light);
-        background-color: var(--primary);
-      }
-
-      @media (min-width: 1024px) {
-        h3,
-        .h3 {
-          font-size: 40px;
-        }
-      }
-
-      header {
-        display: flex;
-        overflow: hidden;
-        justify-content: center;
-        padding: 16px 28px;
-        background: var(--bg);
-        border-bottom: 1px solid rgba(232, 246, 254, 0.1);
-      }
-
-      @media (min-width: 1024px) {
-        header {
-          padding: 20px 32px;
-        }
-      }
-
-      .header__media {
-        height: 45px;
-        width: auto;
-        position: relative;
-      }
-
-      @media (min-width: 1024px) {
-        .header__media {
-          height: 60px;
-        }
-      }
-
-      .header__img {
-        height: 100%;
-        width: auto;
-        object-fit: contain;
-      }
-
-      main {
-        flex: 1 1 0%;
-      }
-
-      .main__hero {
+      .container {
         width: 100%;
-        position: relative;
-        overflow: hidden;
-
-        display: flex;
-        flex-direction: column;
+        max-width: 600px;
+        margin: 0 auto;
+        background-color: #19181a;
+        padding: 20px;
+        box-sizing: border-box;
       }
-
-      .main__content {
-        width: 100%;
-        padding: 28px;
-
-        display: flex;
-        flex-direction: column;
-        row-gap: 20px;
-      }
-
-      @media (min-width: 1024px) {
-        .main__content {
-          padding: 32px;
-          row-gap: 24px;
-        }
-      }
-
-      p {
-        font-size: 14px;
-      }
-
-      @media (min-width: 1024px) {
-        p {
-          font-size: 16px;
-        }
-      }
-
-      code {
-        display: inline-block;
-        padding: 16px 24px;
-        width: 100%;
+      .header {
         text-align: center;
-        font-size: 20px;
-        font-weight: 700;
-        letter-spacing: 1pt;
-        backdrop-filter: blur(5.8px);
-        border-radius: 8px;
-        -webkit-backdrop-filter: blur(5.8px);
-        background: rgba(100, 109, 114, 0.1);
-        box-shadow: 0 0 2px rgba(232, 246, 254, 0.15);
-        box-shadow: 0 4px 30px rgba(25, 24, 26, 0.1);
+        padding: 10px 0;
       }
-
-      @media (min-width: 1024px) {
-        code {
-          display: inline-block;
-          padding: 20px 56px;
-          font-size: 24px;
-          font-weight: 700;
-          width: auto;
-          letter-spacing: 1pt;
-          backdrop-filter: blur(5.8px);
-          border-radius: 8px;
-          -webkit-backdrop-filter: blur(5.8px);
-          background: rgba(100, 109, 114, 0.1);
-          box-shadow: 0 0 2px rgba(232, 246, 254, 0.15);
-          box-shadow: 0 4px 30px rgba(25, 24, 26, 0.1);
-        }
+      .header img {
+        max-width: 100px;
+        height: auto;
       }
-
-      footer {
-        background: var(--tertiary-500);
-        display: flex;
-        align-items: center;
-        flex-direction: column;
+      .main-content {
+        text-align: center;
+        padding: 20px;
       }
-
-      .footer__content {
-        row-gap: 12px;
-        padding: 28px;
-        padding-bottom: 0;
-        display: flex;
-        align-items: center;
-        flex-direction: column;
+      .main-content h3 {
+        font-size: 24px;
+        color: #34aaf3;
       }
-
-      @media (min-width: 1024px) {
-        .footer__content {
-          row-gap: 16px;
-          padding: 32px;
-        }
+      .main-content p {
+        font-size: 14px;
+        line-height: 1.5;
       }
-
-      .footer__heading {
+      .btn {
+        display: inline-block;
+        padding: 15px 25px;
+        margin: 20px 0;
+        background-color: #34aaf3;
+        color: #0f0e10;
+        text-decoration: none;
+        border-radius: 5px;
         font-size: 16px;
       }
-
-      .footer__actions {
-        display: flex;
-        align-items: center;
-        column-gap: 16px;
+      .btn:hover {
+        background-color: #e4457b;
+        color: #fceaf0;
       }
-
-      .footer__actions a {
-        display: inline-block;
+      .verification-code {
+        display: block;
+        padding: 15px;
+        background-color: rgba(100, 109, 114, 0.1);
+        border-radius: 5px;
+        margin: 20px 0;
+        font-size: 20px;
+        font-weight: bold;
+        text-align: center;
+      }
+      .footer {
+        text-align: center;
+        padding: 20px;
+        background-color: #0f0e10;
+      }
+      .footer a {
+        color: #34aaf3;
+        text-decoration: none;
+      }
+      .footer a:hover {
+        text-decoration: underline;
+      }
+      .social-icons {
+        padding: 20px;
+      }
+      .social-icons img {
         width: 32px;
         height: 32px;
-        border-radius: 4px;
-        position: relative;
-      }
-
-      .footer__actions a img {
-        width: 100%;
-        height: 100%;
-        object-fit: contain;
-      }
-
-      .footer__panel {
-        border-top: 1px solid rgba(232, 246, 254, 0.1);
-        width: 100%;
-        display: flex;
-        justify-content: center;
-        font-size: 12px;
-        font-weight: 300;
-        letter-spacing: 0.2pt;
-        margin-top: 28px;
-        padding: 16px 28px;
-      }
-
-      @media (min-width: 1024px) {
-        .footer__panel {
-          padding: 16px 32px;
-        }
-      }
-
-      .bbm-team {
-        background-image: linear-gradient(
-          to bottom right,
-          #e1306c 0%,
-          #1da1f2 50%,
-          #656ef4 100%
-        );
-        background-size: cover !important;
-        background-clip: text !important;
-        color: transparent !important;
-        font-weight: 700 !important;
+        margin: 0 10px;
       }
     </style>
   </head>
   <body>
-    <header class="header">
-      <div class="header__media">
-        <img class="header__img" src="https://firebasestorage.googleapis.com/v0/b/bullbearmastery.appspot.com/o/Assets%2Ftemplates%2Fbbm-logo.png?alt=media&token=a2c5d6c7-1b13-4f94-8d4e-631e305aad23" alt="BRAND LOGO" />
-      </div>
-    </header>
-
-    <main class="main">
-      <div class="main__hero">
-        <img src="https://firebasestorage.googleapis.com/v0/b/bullbearmastery.appspot.com/o/Assets%2Ftemplates%2Femail-verification.png?alt=media&token=97a4ebea-9abc-4275-bfa3-4cce6b260e89" alt="EMAIL VERIFICATION IMAGE" />
+    <div class="container">
+      <div class="header">
+        <img src="https://firebasestorage.googleapis.com/v0/b/bullbearmastery.appspot.com/o/Assets%2Ftemplates%2Fbbm-logo.png?alt=media&token=a2c5d6c7-1b13-4f94-8d4e-631e305aad23" alt="BRAND LOGO" />
       </div>
 
-      <div class="main__content">
-        <h3 class="font-squada-one text-info">Email Verification</h1>
-
+      <div class="main-content">
+        <h3>Email Verification</h3>
         <p>Hi {{username}},</p>
-
         <p>Thanks for joining BullBear Mastery! We're excited to have you on board.</p>
-
-        <p>To complete your registration and unlock all the features of BullBear Mastery, simply verify your email address.</p>
-
-        <div style="margin-bottom: 16px;">
-          <a href="{{ verificationLink }}" target="_blank" rel="noreferer noopener" class="btn">Go to Verification Page</a>
-        </div>
-
-
+        <p>To complete your registration and unlock all the features of BullBear Mastery, simply verify your email address by clicking the button below.</p>
+        <a href="{{ verificationLink }}" target="_blank" class="btn">Go to Verification Page</a>
         <p>Kindly utilize the provided activation code to verify and activate your account.</p>
-
-        <div>
-          <code>{{ verificationCode }}</code>
-        </div>
-
-        <p style="font-weight: 600;">Don't worry, this code is valid for 30 minutes.</p>
-
-        <p style="font-size: 14px;">If you've already verified your email or aren't interested in joining <a href="https://bullbearmastery.com/" target="_blank" rel="noreferer noopener">BullBear Mastery</a>, you can disregard this email.</p>
-
-        <div style="width: 100%; margin-top: 16px;">
-          <p style="font-weight: 500;">Welcome to the community!</p>
-          <p style="font-weight: 500;" class="bbm-team">The BBM Team</p>
-        </div>
-      </div>
-    </main>
-
-    <footer class="footer">
-      <div class="footer__content">
-        <div class="footer__heading">Join Our Communities</div>
-
-        <div class="footer__actions">
-          <a
-            href="#"
-            target="_blank"
-            rel="noreferer noopener"
-            referrerpolicy="origin"
-          >
-            <img src="https://firebasestorage.googleapis.com/v0/b/bullbearmastery.appspot.com/o/Assets%2Ficons%2Fdiscord.png?alt=media&token=27855001-07eb-4b3f-88ac-cdd4b25e154e" alt="Discord" />
-          </a>
-
-          <a
-            href="#"
-            target="_blank"
-            rel="noreferer noopener"
-            referrerpolicy="origin"
-          >
-            <img src="https://firebasestorage.googleapis.com/v0/b/bullbearmastery.appspot.com/o/Assets%2Ficons%2Finstagram.png?alt=media&token=fa7b882f-3701-4180-a4f0-eed7edd6cab8" alt="Instagram" />
-          </a>
-
-          <a
-            href="#"
-            target="_blank"
-            rel="noreferer noopener"
-            referrerpolicy="origin"
-          >
-            <img src="https://firebasestorage.googleapis.com/v0/b/bullbearmastery.appspot.com/o/Assets%2Ficons%2Fx.png?alt=media&token=90d72047-1f04-4868-b64a-fe4abd7b621f" alt="X" />
-          </a>
-        </div>
-
-        <p style="font-size: 14px; margin-top: 16px">
-          Thank you for choosing BullBear Mastery.
-        </p>
-
-        <p style="font-size: 12px; margin-top: 16px">
-          Need help?
-          <a href="https://bullbearmastery.com/contact-us"
-            >Contact our customer support</a
-          >
-        </p>
+        <div class="verification-code">{{ verificationCode }}</div>
+        <p>Don't worry, this code is valid for 30 minutes.</p>
+        <p>If you've already verified your email or aren't interested in joining <a href="https://bullbearmastery.com/" target="_blank">BullBear Mastery</a>, you can disregard this email.</p>
+        <p>Welcome to the community!</p>
+        <p class="bbm-team" style="color: #e1306c; font-weight: bold;">The BBM Team</p>
       </div>
 
-      <div class="footer__panel">
-        <span>&copy; 2024 BullBear Mastery. All Rights Reserved</span>
+      <div class="footer">
+        <p>Join Our Communities</p>
+        <div class="social-icons">
+          <a href="#" target="_blank"><img src="https://firebasestorage.googleapis.com/v0/b/bullbearmastery.appspot.com/o/Assets%2Ficons%2Fdiscord.png?alt=media&token=27855001-07eb-4b3f-88ac-cdd4b25e154e" alt="Discord" /></a>
+          <a href="#" target="_blank"><img src="https://firebasestorage.googleapis.com/v0/b/bullbearmastery.appspot.com/o/Assets%2Ficons%2Finstagram.png?alt=media&token=fa7b882f-3701-4180-a4f0-eed7edd6cab8" alt="Instagram" /></a>
+          <a href="#" target="_blank"><img src="https://firebasestorage.googleapis.com/v0/b/bullbearmastery.appspot.com/o/Assets%2Ficons%2Fx.png?alt=media&token=90d72047-1f04-4868-b64a-fe4abd7b621f" alt="X" /></a>
+        </div>
+        <p>Thank you for choosing BullBear Mastery.</p>
+        <p>Need help? <a href="https://bullbearmastery.com/contact-us" target="_blank">Contact our customer support</a></p>
+        <p>&copy; 2024 BullBear Mastery. All Rights Reserved</p>
       </div>
-    </footer>
+    </div>
   </body>
 </html>
