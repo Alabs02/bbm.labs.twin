@@ -10,21 +10,21 @@
 			#000000 !important; } p, span { color: #000000 !important; } .container { background-color:
 			#f4f4f4 !important; } .main-content h3 { color: #007bff !important; } .btn { background-color:
 			#007bff !important; color: #ffffff !important; } .btn:hover { background-color: #0056b3
-			!important; } .verification-code { background-color: #e2e6ea !important; color: #333333
-			!important; } .footer { background-color: #f4f4f4 !important; } } a { text-decoration: none;
-			transition: all 0.3s ease-out; } a:hover { text-decoration: underline; } .container { width:
-			100%; max-width: 600px; margin: 0 auto; background-color: #19181a; padding: 20px; box-sizing:
-			border-box; } .header { text-align: center; padding: 10px 0; } .header img { max-width: 100px;
-			height: auto; } .main-content { text-align: center; padding: 20px; } .main-content h3 {
-			font-size: 24px; color: #34aaf3; } .main-content p { font-size: 14px; line-height: 1.5; } .btn
-			{ display: inline-block; padding: 15px 25px; margin: 20px 0; background-color: #34aaf3; color:
-			#000000 !important; text-decoration: none; border-radius: 5px; font-size: 16px; } .btn:hover {
-			background-color: #e4457b; color: #fceaf0; } .verification-code { display: block; padding:
-			15px; background-color: rgba(100, 109, 114, 0.1); color: e2e6ea; border-radius: 5px; margin:
-			20px 0; font-size: 20px; font-weight: bold; text-align: center; } .footer { text-align:
-			center; padding: 20px; background-color: #0f0e10; } .footer a { color: #34aaf3;
-			text-decoration: none; } .footer a:hover { text-decoration: underline; } .social-icons {
-			padding: 20px; } .social-icons img { width: 32px; height: 32px; margin: 0 10px; }
+			!important; } blockquote { background-color: #e2e6ea !important; color: #333333 !important; }
+			.footer { background-color: #f4f4f4 !important; } } a { text-decoration: none; transition: all
+			0.3s ease-out; } a:hover { text-decoration: underline; } .container { width: 100%; max-width:
+			600px; margin: 0 auto; background-color: #19181a; padding: 20px; box-sizing: border-box; }
+			.header { text-align: center; padding: 10px 0; } .header img { max-width: 100px; height: auto;
+			} .main-content { text-align: center; padding: 20px; } .main-content h3 { font-size: 24px;
+			color: #34aaf3; } .main-content p { font-size: 14px; line-height: 1.5; } .btn { display:
+			inline-block; padding: 15px 25px; margin: 20px 0; background-color: #34aaf3; color: #000000
+			!important; text-decoration: none; border-radius: 5px; font-size: 16px; } .btn:hover {
+			background-color: #e4457b; color: #fceaf0; } blockquote { display: block; padding: 15px;
+			background-color: rgba(100, 109, 114, 0.1); color: e2e6ea; border-radius: 5px; margin: 20px 0;
+			font-size: 20px; font-weight: bold; text-align: center; } .footer { text-align: center;
+			padding: 20px; background-color: #0f0e10; } .footer a { color: #34aaf3; text-decoration: none;
+			} .footer a:hover { text-decoration: underline; } .social-icons { padding: 20px; }
+			.social-icons img { width: 32px; height: 32px; margin: 0 10px; }
 		</style>
 	</head>
 	<body>
@@ -44,7 +44,7 @@
 					verify your email address by clicking the button below.</p>
 				<a href="{{verificationLink}}" target="_blank" class="btn">Go to Verification Page</a>
 				<p>Kindly utilize the provided activation code to verify and activate your account.</p>
-				<div class="verification-code">{{verificationCode}}</div>
+				<blockquote class="verification-code">{{verificationCode}}</blockquote>
 				<p>Don't worry, this code is valid for 30 minutes.</p>
 				<p>If you've already verified your email or aren't interested in joining
 					<a href="https://bullbearmastery.com/" target="_blank">BullBear Mastery</a>, you can
