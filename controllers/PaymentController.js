@@ -113,6 +113,7 @@ const PaymentController = {
 				payment_token: paymentToken,
 				expires_at: expirationAt,
 				order_code: orderCode,
+        created_at: new Date()
 			});
 
 			const response = {

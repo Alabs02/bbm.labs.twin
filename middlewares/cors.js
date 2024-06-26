@@ -10,4 +10,4 @@ const corsOptions = {
 
 const corsMiddleware = cors(corsOptions);
 
-module.exports = corsMiddleware;
+module.exports = corsMiddleware; 

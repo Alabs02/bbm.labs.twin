@@ -72,6 +72,14 @@ module.exports = (sequelize, DataTypes) => {
 				type: DataTypes.DATE,
 				allowNull: false,
 			},
+      created_at: {
+				type: DataTypes.DATE,
+				allowNull: false,
+			},
+      // updated_at: {
+			// 	type: DataTypes.DATE,
+			// 	allowNull: false,
+			// },
 			order_code: {
 				type: DataTypes.STRING(6),
 				allowNull: false,
