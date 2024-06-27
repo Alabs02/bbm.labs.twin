@@ -202,11 +202,8 @@ const AuthController = {
 				verification_code: verificationCode,
 				verification_code_expires_at: verificationCodeExpiresAt,
 			});
-
-      Promise.all([
-        await AuthController.sendWelcomeEmail(email, userName),
-        await AuthController.sendVerificationEmail(email, userName, verificationCode, verificationLink)
-      ]);
+        
+      await AuthController.sendVerificationEmail(email, userName, verificationCode, verificationLink)
       
 			const { password: _, deleted_at, ...userResponse } = user.toJSON();
 
@@ -238,58 +235,71 @@ const AuthController = {
 	},
 
 	async verifyEmailCode(req, res) {
-		const { email, code } = req.body;
-
-		try {
-			const user = await db.User.findOne({
-				where: { email, verification_code: code },
-			});
-
-			if (!user) {
-				return res
-					.status(400)
-					.json(
-						responseSerializer.format(
-							false,
-							"Invalid verification code. Please check your email and try again.",
-						),
-					);
-			}
-
-			if (user.verification_code_expires_at < new Date()) {
-				return res
-					.status(400)
-					.json(
-						responseSerializer.format(
-							false,
-							"Verification code has expired. Please request a new code.",
-						),
-					);
-			}
-
-			await user.update({
-				email_verified_at: new Date(),
-				verification_code: null,
-				verification_code_expires_at: null,
-			});
-
-			return res
-				.status(200)
-				.json(responseSerializer.format(true, "Email verified successfully. You can now log in."));
-		} catch (error) {
-			console.error("Error in verifyEmailCode:", error);
-			return res
-				.status(500)
-				.json(
-					responseSerializer.format(
-						false,
-						"Internal error. Contact support or your admin for help.",
-						null,
-						[{ msg: error.message }],
-					),
-				);
-		}
-	},
+    const { email, code } = req.body;
+  
+    try {
+      const user = await db.User.findOne({
+        where: { email, verification_code: code },
+      });
+  
+      if (!user) {
+        return res
+          .status(400)
+          .json(
+            responseSerializer.format(
+              false,
+              "Invalid verification code. Please check your email and try again.",
+            ),
+          );
+      }
+  
+      if (user.verification_code_expires_at < new Date()) {
+        return res
+          .status(400)
+          .json(
+            responseSerializer.format(
+              false,
+              "Verification code has expired. Please request a new code.",
+            ),
+          );
+      }
+  
+      await user.update({
+        email_verified_at: new Date(),
+        verification_code: null,
+        verification_code_expires_at: null,
+      });
+  
+      // Send the response first to ensure verification success
+      res
+        .status(200)
+        .json(responseSerializer.format(true, "Email verified successfully. You can now log in."));
+  
+      // Set a timeout to send the welcome email after 5 minutes (300000 milliseconds)
+      setTimeout(async () => {
+        try {
+          await AuthController.sendWelcomeEmail(user.email, user.username);
+          console.log("Welcome email sent to", user.email);
+        } catch (emailError) {
+          console.error("Error sending welcome email:", emailError);
+        }
+      }, 300000); // 300000 milliseconds = 5 minutes
+  
+    } catch (error) {
+      console.error("Error in verifyEmailCode:", error);
+      return res
+        .status(500)
+        .json(
+          responseSerializer.format(
+            false,
+            "Internal error. Contact support or your admin for help.",
+            null,
+            [{ msg: error.message }],
+          ),
+        );
+    }
+  },
+  
 
 	async resendVerificationCode(req, res) {
 		const { email } = req.body;
