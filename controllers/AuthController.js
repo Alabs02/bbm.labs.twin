@@ -326,9 +326,9 @@ const AuthController = {
 					);
 			}
 
-			const newVerificationCode = crypto.randomBytes(13).toString("hex"); // 26 characters
+			const newVerificationCode = crypto.randomBytes(13).toString("hex");
       const verificationLink = `${process.env.CLIENT_URI}/account/activation?email=${email}`;
-			const newVerificationCodeExpiresAt = new Date(Date.now() + 30 * 60 * 1000); // 30 minutes from now
+			const newVerificationCodeExpiresAt = new Date(Date.now() + 30 * 60 * 1000);
 
 			await user.update({
 				verification_code: newVerificationCode,
