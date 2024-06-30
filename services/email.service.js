@@ -11,6 +11,7 @@ const ETEMPLATES = {
 	FORGOT_PASSWORD: "forgot_password",
 	EMAIL_VERIFICATION: "email_verification",
 	PAYMENT_CONFIRMATION: "payment_confirmation",
+  PAYMENT_VERFICATION: "payment_verification",
 };
 
 class EmailService {

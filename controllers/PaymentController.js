@@ -11,7 +11,7 @@ const isEmpty = require("lodash/isEmpty.js");
 const emailNotificationService = new EmailService(
 	"notifications@bullbearmastery.com",
 	// process.env.EMAIL_NOTIFICATIONS_KEY,
-  "#1Hizlto",
+	"#1Hizlto",
 	path.join(__dirname, "../templates"),
 );
 
@@ -33,48 +33,48 @@ const generateUniqueOrderCode = async () => {
 };
 
 const accountSizes = [
-  {
-    id: "1",
-    amount: 7500,
-    shortAmount: "7.5k",
-    cost: 71,
-    challengeCharge: 120
-  },
-  {
-    id: "2",
-    amount: 1500,
-    shortAmount: "15k",
-    cost: 140,
-    challengeCharge: 120
-  },
-  {
-    id: "3",
-    amount: 2500,
-    shortAmount: "25k",
-    cost: 220,
-    challengeCharge: 120
-  },
-  {
-    id: "4",
-    amount: 50000,
-    shortAmount: "50k",
-    cost: 440,
-    challengeCharge: 120
-  },
-  {
-    id: "5",
-    amount: 100000,
-    shortAmount: "100k",
-    cost: 890,
-    challengeCharge: 200
-  },
-  {
-    id: "6",
-    amount: 300000,
-    shortAmount: "300k",
-    cost: 2150,
-    challengeCharge: 200
-  }
+	{
+		id: "1",
+		amount: 7500,
+		shortAmount: "7.5k",
+		cost: 71,
+		challengeCharge: 120,
+	},
+	{
+		id: "2",
+		amount: 1500,
+		shortAmount: "15k",
+		cost: 140,
+		challengeCharge: 120,
+	},
+	{
+		id: "3",
+		amount: 2500,
+		shortAmount: "25k",
+		cost: 220,
+		challengeCharge: 120,
+	},
+	{
+		id: "4",
+		amount: 50000,
+		shortAmount: "50k",
+		cost: 440,
+		challengeCharge: 120,
+	},
+	{
+		id: "5",
+		amount: 100000,
+		shortAmount: "100k",
+		cost: 890,
+		challengeCharge: 200,
+	},
+	{
+		id: "6",
+		amount: 300000,
+		shortAmount: "300k",
+		cost: 2150,
+		challengeCharge: 200,
+	},
 ];
 
 const propFirmName = "Next Step Funded";
@@ -113,7 +113,7 @@ const PaymentController = {
 				payment_token: paymentToken,
 				expires_at: expirationAt,
 				order_code: orderCode,
-        created_at: new Date()
+				created_at: new Date(),
 			});
 
 			const response = {
@@ -209,72 +209,94 @@ const PaymentController = {
 	},
 
 	async confirmPayment(req, res) {
-		const { orderCodeOrPaymentToken } = req.params;
-		const { email, firstname, lastname, username } = req.body; // Assume additional details are provided in the request body
-		
+    const { orderCodeOrPaymentToken } = req.params;
+    const { email, firstname, lastname, username } = req.body;
+  
     try {
-			const payment = await db.PaymentInitialization.findOne({
-				where: {
-					[Op.or]: [
-						{ order_code: orderCodeOrPaymentToken },
-						{ payment_token: orderCodeOrPaymentToken },
-					],
-				},
-			});
-
-			if (!payment) {
-				return res
-					.status(404)
-					.json(responseSerializer.format(false, "Payment initialization not found."));
-			}
-
+      const payment = await db.PaymentInitialization.findOne({
+        where: {
+          [Op.or]: [
+            { order_code: orderCodeOrPaymentToken },
+            { payment_token: orderCodeOrPaymentToken },
+          ],
+        },
+      });
+  
+      if (!payment) {
+        return res
+          .status(404)
+          .json(responseSerializer.format(false, "Payment initialization not found."));
+      }
+  
       let accountSize = 0;
-      const accountDetails = accountSizes.find((o) => Number(o.id) === Number(payment.account_size_id));
-
+      const accountDetails = accountSizes.find(
+        (o) => Number(o.id) === Number(payment.account_size_id),
+      );
+  
       if (!isEmpty(accountDetails)) {
         accountSize = new Intl.NumberFormat("en-US", {
           style: "currency",
           currency: "USD",
         }).format(accountDetails.amount);
       }
-
-			const totalCost = new Intl.NumberFormat("en-US", {
-				style: "currency",
-				currency: "USD",
-			}).format(payment.total_payable_amount);
-
-
-			// Update the payment confirmation status and time
-			await payment.update({ payment_confirmed: true, payment_confirmation_time: new Date() });
-
-			// Send pending payment email
-			await emailNotificationService.sendEmail(
-				email,
-				ETEMPLATES.PENDING_PAYMENT,
-				"Action Required: Complete Your Payment for Next Step Funded Challenge",
-				{ username: capitalize(username), propFirmName, accountSize, totalCost },
-			);
-
-			return res
-				.status(200)
-				.json(
-					responseSerializer.format(
-						true,
-						"Payment confirmed. Please wait for 10 minutes for confirmation.",
-						payment,
-					),
-				);
-		} catch (error) {
-			console.error("Error in confirmPayment:", error);
-			return res
-				.status(500)
-				.json(
-					responseSerializer.format(false, "Internal error. Please contact support.", null, [
-						{ msg: error.message },
-					]),
-				);
-		}
-	},
+  
+      const totalCost = new Intl.NumberFormat("en-US", {
+        style: "currency",
+        currency: "USD",
+      }).format(payment.total_payable_amount);
+  
+      // Update the payment confirmation status and time
+      await payment.update({ payment_confirmed: true, payment_confirmation_time: new Date() });
+  
+      // Schedule the emails to be sent 5 minutes later
+      setTimeout(async () => {
+        try {
+          await Promise.all([
+            emailNotificationService.sendEmail(
+              email,
+              ETEMPLATES.PENDING_PAYMENT,
+              "We're processing your payment. We'll let you know shortly when it's confirmed.",
+              { username: capitalize(username), propFirmName, accountSize, totalCost },
+            ),
+            emailNotificationService.sendEmail(
+              "notifications@bullbearmastery.com",
+              ETEMPLATES.PAYMENT_VERFICATION,
+              "Action Required: Process client payment!",
+              {
+                propFirmName,
+                accountSize,
+                totalCost,
+                pId: payment.id,
+                paymentToken: payment.payment_token,
+                orderCode: payment.order_code,
+              },
+            ),
+          ]);
+        } catch (emailError) {
+          console.error("Error sending emails:", emailError);
+        }
+      }, 300000); // 300000 ms = 5 minutes
+  
+      return res
+        .status(200)
+        .json(
+          responseSerializer.format(
+            true,
+            "Payment confirmed. Please wait for 10 minutes for confirmation.",
+            payment,
+          ),
+        );
+    } catch (error) {
+      console.error("Error in confirmPayment:", error);
+      return res
+        .status(500)
+        .json(
+          responseSerializer.format(false, "Internal error. Please contact support.", null, [
+            { msg: error.message },
+          ]),
+        );
+    }
+  },  
 
 	async adminConfirmPayment(req, res) {
 		const { payment_initializations_id, status, adminUsername } = req.body;
@@ -321,16 +343,17 @@ const PaymentController = {
 				});
 			}
 
+			let accountSize = 0;
+			const accountDetails = accountSizes.find(
+				(o) => Number(o.id) === Number(paymentInitialization.account_size_id),
+			);
 
-      let accountSize = 0;
-      const accountDetails = accountSizes.find((o) => Number(o.id) === Number(paymentInitialization.account_size_id));
-
-      if (!isEmpty(accountDetails)) {
-        accountSize = new Intl.NumberFormat("en-US", {
-          style: "currency",
-          currency: "USD",
-        }).format(accountDetails.amount);
-      }
+			if (!isEmpty(accountDetails)) {
+				accountSize = new Intl.NumberFormat("en-US", {
+					style: "currency",
+					currency: "USD",
+				}).format(accountDetails.amount);
+			}
 
 			const totalCost = new Intl.NumberFormat("en-US", {
 				style: "currency",
@@ -347,7 +370,7 @@ const PaymentController = {
 				await emailNotificationService.sendEmail(
 					email,
 					ETEMPLATES.PAYMENT_CONFIRMATION,
-          `Funding Secured, ${capitalize(username)}! Get Ready to Conquer Your Challenge`,
+					`Funding Secured, ${capitalize(username)}! Get Ready to Conquer Your Challenge`,
 					{
 						username: capitalize(username),
 						propFirmName,
