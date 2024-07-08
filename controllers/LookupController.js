@@ -8,9 +8,9 @@ countries.registerLocale(require("i18n-iso-countries/langs/en.json"));
 
 const LookupController = {
 	async getIpAPIInfo(req, res) {
-		return res.status(200).json(
-			responseSerializer.format(true, 'Api is running', { name: "BBM LABS API SERVICE V1" })
-		);
+		return res
+			.status(200)
+			.json(responseSerializer.format(true, "Api is running", { name: "BBM LABS API SERVICE V1" }));
 	},
 
 	async getUserEmailVerificationStatus(req, res) {
@@ -60,6 +60,99 @@ const LookupController = {
 			);
 		} catch (error) {
 			console.error("Error in checkUsernameAvailability:", error);
+			return res
+				.status(500)
+				.json(
+					responseSerializer.format(
+						false,
+						"Internal error. Contact support or your admin for help.",
+						null,
+						[{ msg: error.message }],
+					),
+				);
+		}
+	},
+
+	async checkUserChallenges(req, res) {
+		const userId = req.params.userId;
+
+		try {
+			const completedChallengePayments = await db.ChallengePayment.findAll({
+				where: {
+					user_id: userId,
+					admin_payment_confirmation_status: "completed",
+				},
+			});
+
+			if (!completedChallengePayments.length) {
+				return res
+					.status(200)
+					.json(
+						responseSerializer.format(true, "User has no completed challenge payments.", false),
+					);
+			}
+
+			const challengePaymentIds = completedChallengePayments.map((payment) => payment.id);
+
+			const userChallenges = await db.Challenge.findAll({
+				where: {
+					challenge_payment_id: challengePaymentIds,
+				},
+			});
+
+			const hasChallenges = userChallenges.length > 0;
+
+			return res
+				.status(200)
+				.json(
+					responseSerializer.format(true, "Challenge status checked successfully.", hasChallenges),
+				);
+		} catch (error) {
+			console.error("Error in checkUserChallenges:", error);
+			return res
+				.status(500)
+				.json(
+					responseSerializer.format(
+						false,
+						"Internal error. Contact support or your admin for help.",
+						null,
+						[{ msg: error.message }],
+					),
+				);
+		}
+	},
+
+	async checkRecentPaymentInitialization(req, res) {
+		const userId = req.params.userId;
+
+		try {
+			const currentTime = new Date();
+
+			// Calculate the date and time 24 hours ago
+			const twentyFourHoursAgo = new Date(currentTime.getTime() - 24 * 60 * 60 * 1000);
+
+			const recentPayments = await db.PaymentInitialization.findAll({
+				where: {
+					user_id: userId,
+					payment_confirmation_time: {
+						[db.Sequelize.Op.gt]: twentyFourHoursAgo,
+					},
+				},
+			});
+
+			const hasRecentPayment = recentPayments.length > 0;
+
+			return res
+				.status(200)
+				.json(
+					responseSerializer.format(
+						true,
+						"Recent payment initialization status checked successfully.",
+						hasRecentPayment,
+					),
+				);
+		} catch (error) {
+			console.error("Error in checkRecentPaymentInitialization:", error);
 			return res
 				.status(500)
 				.json(

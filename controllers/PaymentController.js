@@ -366,7 +366,13 @@ const PaymentController = {
 			const dashboardLink = process.env.CLIENT_DASHBOARD_URI;
 
 			if (status === "completed") {
-				// Send a confirmation email to the user
+				// Create a new Challenge record associated with the ChallengePayment
+				await db.Challenge.create({
+					challenge_payment_id: challengePayment.id,
+					status: "pending",
+				});
+
+        // Send a confirmation email to the user
 				await emailNotificationService.sendEmail(
 					email,
 					ETEMPLATES.PAYMENT_CONFIRMATION,
@@ -380,11 +386,6 @@ const PaymentController = {
 					},
 				);
 
-				// Create a new Challenge record associated with the ChallengePayment
-				await db.Challenge.create({
-					challenge_payment_id: challengePayment.id,
-					status: "pending",
-				});
 			} else if (status === "failed") {
 				// Send a failed payment email to the user
 				await emailNotificationService.sendEmail(
