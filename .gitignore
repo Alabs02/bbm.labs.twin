@@ -1,7 +1,7 @@
 # Dependencies
 node_modules/
 config/
-config
+config/config.json
 
 # Logs
 *.log
